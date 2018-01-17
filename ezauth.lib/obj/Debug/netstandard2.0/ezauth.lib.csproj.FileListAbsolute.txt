@@ -1,8 +1,0 @@
-/home/alec/projects/ezauth/ezauth.lib/bin/Debug/netstandard2.0/ezauth.lib.deps.json
-/home/alec/projects/ezauth/ezauth.lib/bin/Debug/netstandard2.0/ezauth.lib.dll
-/home/alec/projects/ezauth/ezauth.lib/bin/Debug/netstandard2.0/ezauth.lib.pdb
-/home/alec/projects/ezauth/ezauth.lib/obj/Debug/netstandard2.0/ezauth.lib.csproj.CoreCompileInputs.cache
-/home/alec/projects/ezauth/ezauth.lib/obj/Debug/netstandard2.0/ezauth.lib.AssemblyInfoInputs.cache
-/home/alec/projects/ezauth/ezauth.lib/obj/Debug/netstandard2.0/ezauth.lib.AssemblyInfo.cs
-/home/alec/projects/ezauth/ezauth.lib/obj/Debug/netstandard2.0/ezauth.lib.dll
-/home/alec/projects/ezauth/ezauth.lib/obj/Debug/netstandard2.0/ezauth.lib.pdb

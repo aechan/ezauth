@@ -2,6 +2,12 @@ using System;
 using OtpNet;
 
 namespace ezauth.lib.AuthProviders {
+    /// <summary>
+    /// AuthProvider that implements the TOTP standard.
+    /// 
+    /// Usually used as a 2FA factor but can be used as a
+    /// standalone password.
+    /// </summary>
     public class TOTPProvider : IAuthProvider
     {
         private Totp Totp;
@@ -10,9 +16,10 @@ namespace ezauth.lib.AuthProviders {
         public string SecretKey;
 
         /// <summary>
-        /// The default constructor creates a new secret key and saves it to the property SecretKey
+        /// The default constructor creates a new secret key and saves it to the property SecretKey.
         /// Used for registering a new user. Make sure to save SecretKey to your database under your user.
         /// </summary>
+        /// <param name="Provider">The provider name for encoding in a QR code: e.g. yoursite.com</param>
         public TOTPProvider(string Provider) {
             this.Provider = Provider;
 
@@ -30,6 +37,7 @@ namespace ezauth.lib.AuthProviders {
         /// <summary>
         /// For users who have already set up TOTP and have a secret already generated.
         /// </summary>
+        /// <param name="Provider">The provider name for encoding in a QR code: e.g. yoursite.com</param>
         /// <param name="Base32Secret">The shared secret key</param>
         public TOTPProvider(string Provider, string Base32Secret) {
             this.Provider = Provider;
@@ -40,27 +48,38 @@ namespace ezauth.lib.AuthProviders {
             Totp = new Totp(base32Bytes);
         }
 
+        /// <summary>
+        /// The OTP URI for adding this TOTP secret to an authenticator app.
+        /// 
+        /// Usually encoded as a QR code.
+        /// </summary>
+        /// <returns></returns>
         public string GetOTPURI() {
             return "otpauth://totp/"+Provider+"?secret="+SecretKey;
         }
-
-        public AuthResult Validate(string UserID, string PassCode)
+        
+        public override AuthorizationData Validate(string UserID, string PassCode)
         {
             if(Totp == null) {
-                throw new InvalidOperationException("TOTPSecret cannot be empty," +
-                 "please set your shared secret key before trying to validate.");
-
-                 // for some reason if you want to avoid throwing exceptions
-                 // you can return an error
-                 // return AuthResult.ERROR;
+                // if somehow the constructor wasnt called.......
+                return new AuthorizationData(AuthResult.ERROR, "");
             } else {
                 long timeStepMatched;
                 if(Totp.VerifyTotp(PassCode, out timeStepMatched)) {
-                    return AuthResult.VALIDATED;
+                    return new AuthorizationData(AuthResult.VALIDATED, GenerateToken(UserID, PassCode, SecretKey));
                 } else {
-                    return AuthResult.INVALID_PASSCODE;
+                    return new AuthorizationData(AuthResult.INVALID_PASSCODE, "");
                 }
             }
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <returns>SecretKey at index 0.
+        /// Save this linked to the user who created it.</returns>
+        public override string[] GetDataToStore()
+        {
+            return new string[] {SecretKey};
         }
     }
 }

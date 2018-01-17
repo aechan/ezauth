@@ -4,7 +4,12 @@ using System.Security.Cryptography;
 namespace ezauth.lib.AuthProviders {
     public class PasswordHashProvider : IAuthProvider
     {
-        AuthResult IAuthProvider.Validate(string UserID, string PassCode)
+        public override string[] GetDataToStore()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override AuthorizationData Validate(string UserID, string PassCode)
         {
             throw new NotImplementedException();
         }

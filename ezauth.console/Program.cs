@@ -9,10 +9,27 @@ namespace ezauth.console
     {
         static void Main(string[] args)
         {
-            TestTOTP();
+            Console.WriteLine("Welcome to the ezauth testbench.");
+            Console.WriteLine("Options: 'totp' for TOTP test, 'hash' for Password Hashing test, 'q' to quit");
+            Console.Write("> ");
+            string input = Console.ReadLine();
+
+            switch(input.ToLower()) {
+                case "totp":
+                    TestTOTP();
+                    break;
+                case "hash":
+                    TestHash();
+                    break;
+            }
         }
 
-        static void TestTOTP() {
+        private static void TestHash()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void TestTOTP() {
             Console.WriteLine("======================== TOTP Test ========================");
             Console.WriteLine("Creating new user with data:");
             var user = new Models.FakeUser("John", "hunter2", "");

@@ -10,6 +10,7 @@ Dead simple user authentication for C# with support for 2FA.
   
   // get the otp uri for sharing the secret with
   // a client e.g. Google Authenticator
+  // Usually you'll encode this into a QR code (try QRCoder)
   string URI = totp.GetOTPURI();
 
   // validate the code given by the user for authentication
@@ -19,7 +20,7 @@ Dead simple user authentication for C# with support for 2FA.
   if (res.Result == AuthResult.VALIDATED) {
       Console.WriteLine("Your code was valid!");
       string token = res.AuthToken; // your JWT token for login later
-      
+
   } else if (res.Result == AuthResult.INVALID_PASSCODE) {
       Console.WriteLine("Invalid code.");
   }

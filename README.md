@@ -5,6 +5,8 @@ Dead simple user authentication for C# with support for 2FA.
 - Add reference to ezauth.lib project.
   ### TOTP Example
   ````csharp
+  using ezauth.lib.AuthProviders;
+  
   // init new totp provider
   TOTPProvider totp = new TOTPProvider("ezauth_totp_test");
   

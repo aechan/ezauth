@@ -4,6 +4,7 @@ Dead simple user authentication for C# with support for 2FA.
 
 ## Usage
 - Add reference to ezauth.lib project.
+- Or install via Nuget `Install-Package ezauth.lib`
   ### TOTP Example
   TOTP - Time-based One-Time Password is an algorithm that generates a one-time password based on a secret key and the current time.
 

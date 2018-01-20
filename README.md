@@ -1,3 +1,4 @@
+[![NuGet version](https://badge.fury.io/nu/ezauth.lib.svg)](https://badge.fury.io/nu/ezauth.lib)
 # ezauth
 Dead simple user authentication for C# with support for 2FA.
 
